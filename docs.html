@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs — Logilocky AI Linux</title>
+    <link rel="icon" type="image/png" href="Assets/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav id="navbar" class="scrolled">
+        <a href="index.html" class="logo"><img src="Assets/logo.png" alt="Logilocky AI"></a>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="ecosystem.html">Ecosystem</a>
+            <a href="changelog.html">Changelog</a>
+            <a href="news.html">AI News</a>
+            <a href="docs.html">Docs</a>
+            <a href="download.html" class="btn-primary">Download</a>
+        </div>
+        <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <div class="container docs-layout">
+        <aside class="docs-sidebar">
+            <h3>Overview</h3>
+            <ul>
+                <li><a href="#architecture">System Details</a></li>
+            </ul>
+            <h3>Installation</h3>
+            <ul>
+                <li><a href="#usb">Writing to USB</a></li>
+                <li><a href="#installer">Debian Installer</a></li>
+            </ul>
+            <h3>Kernel</h3>
+            <ul>
+                <li><a href="#sysctl">Sysctl Tuning</a></li>
+                <li><a href="#grub">GRUB Settings</a></li>
+            </ul>
+            <h3>LM Studio Guide</h3>
+            <ul>
+                <li><a href="#lm-studio">Offline AI Guide</a></li>
+            </ul>
+            <h3>AI Tools</h3>
+            <ul>
+                <li><a href="#ai-center">AI Center</a></li>
+                <li><a href="#ollama-mgr">Ollama Manager</a></li>
+                <li><a href="#ai-chat">AI Chat</a></li>
+                <li><a href="#terminal-ai">Terminal AI</a></li>
+                <li><a href="#ai-monitor">AI Monitor</a></li>
+                <li><a href="#ai-scraper">AI Scraper</a></li>
+                <li><a href="#openclaw">OpenClaw Installer</a></li>
+                <li><a href="#huggingface">Huggingface CLI Store</a></li>
+            </ul>
+            <h3>System Tools</h3>
+            <ul>
+                <li><a href="#system-manager">System Manager</a></li>
+                <li><a href="#packagemanager">Package Manager</a></li>
+                <li><a href="#update">Update Tool</a></li>
+                <li><a href="#system-cleaner">System Cleaner</a></li>
+                <li><a href="#sysinfo">Sysinfo</a></li>
+                <li><a href="#usb-toolkit">USB Toolkit</a></li>
+                <li><a href="#browser-manager">Browser Manager</a></li>
+                <li><a href="#conky">Conky Settings</a></li>
+            </ul>
+            <h3>Security</h3>
+            <ul>
+                <li><a href="#firewall">Firewall</a></li>
+                <li><a href="#privacy">Privacy Tools</a></li>
+                <li><a href="#crypt">Logilocky Crypt</a></li>
+                <li><a href="#dns-changer">DNS Changer</a></li>
+            </ul>
+            <h3>Productivity</h3>
+            <ul>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#todo">Todo</a></li>
+                <li><a href="#calendar">Calendar</a></li>
+                <li><a href="#doc-converter">Document Converter</a></li>
+            </ul>
+            <h3>Other</h3>
+            <ul>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#disclaimer">Disclaimer</a></li>
+            </ul>
+        </aside>
+
+        <main class="docs-main">
+
+            <!-- ═══ SYSTEM ARCHITECTURE ═══ -->
+            <section id="architecture">
+                <h2>System Details</h2>
+                <div class="ecosystem-grid" style="grid-template-columns: 1fr 1fr; margin-top: 12px;">
+                    <div class="glass-panel">
+                        <h4>Base OS: Debian</h4>
+                        <p>Rock-solid stability, massive package repo, predictable release cycle. Your AI environments
+                            won't break from bleeding-edge updates.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>Desktop: MATE</h4>
+                        <p>Traditional, lightweight, and fast. Minimal GUI resource footprint means maximum CPU/RAM for
+                            your AI models.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>Display Server: X11</h4>
+                        <p>Proven compatibility with proprietary GPU drivers (NVIDIA CUDA), critical for
+                            hardware-accelerated AI inference.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>Init System: systemd</h4>
+                        <p>Modern service management. AI daemons (Ollama, model servers) run securely and efficiently in
+                            the background.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ USB FLASHING ═══ -->
+            <section id="usb">
+                <h2>Writing to USB</h2>
+                <p>Flash the downloaded <code>.iso</code> to a USB drive (8GB+ recommended). Three methods:</p>
+
+                <h3>Ventoy (Recommended)</h3>
+                <p>Install Ventoy to your USB once, then simply copy the ISO file onto it. You can keep multiple ISOs
+                    and other files on the same drive. Boot from USB and select Logilocky from the Ventoy menu.</p>
+
+                <h3>BalenaEtcher</h3>
+                <p>Cross-platform GUI tool. Open BalenaEtcher → Select ISO → Select USB → Flash. Includes automatic
+                    verification.</p>
+
+                <h3>dd (Linux CLI)</h3>
+                <p><strong>Warning:</strong> Double-check the <code>of=</code> parameter to avoid overwriting your
+                    system drive.</p>
+                <pre><code>lsblk                    # identify your USB (e.g. /dev/sdb)
+sudo dd if=logilocky.iso of=/dev/sdX bs=4M status=progress oflag=sync</code></pre>
+            </section>
+
+            <!-- ═══ DEBIAN INSTALLER ═══ -->
+            <section id="installer">
+                <h2>Using the Debian Installer</h2>
+                <p>Boot from USB → select <strong>Graphical Install</strong> or <strong>Install</strong> from GRUB.</p>
+                <ol>
+                    <li>Select language, timezone, keyboard layout.</li>
+                    <li><strong>Partitioning:</strong> "Guided – use entire disk" for simple installs, or "Manual" for
+                        dual-boot / custom partitions.</li>
+                    <li>For AI workloads, consider a separate <code>/home</code> or <code>/opt</code> on your fastest
+                        NVMe for storing large model files (GGUF/Safetensors).</li>
+                    <li>Create generous Swap (32GB+ on NVMe) to prevent OOM crashes when loading large LLMs.</li>
+                    <li>Configure network during install for latest security updates.</li>
+                </ol>
+            </section>
+
+            <!-- ═══ SYSCTL ═══ -->
+            <section id="sysctl">
+                <h2>Kernel: Sysctl Tuning</h2>
+                <p>Custom kernel tuning in <code>/etc/sysctl.d/tuning.conf</code> optimizes VM and networking for AI
+                    workloads:</p>
+                <pre><code>vm.swappiness = 10              # keep model data in RAM longer
+vm.dirty_ratio = 60             # aggressive memory buffering for model I/O
+vm.dirty_background_ratio = 2   # early background writeback</code></pre>
+                <p>Low <code>swappiness</code> prevents the kernel from paging model data to disk during inference. High
+                    <code>dirty_ratio</code> speeds up model saving/loading by buffering writes in memory.
+                </p>
+            </section>
+
+            <!-- ═══ GRUB ═══ -->
+            <section id="grub">
+                <h2>Kernel: GRUB Settings</h2>
+                <p>Boot parameters in <code>/etc/default/grub.d/99-performance-tuning.cfg</code> disable aggressive CPU
+                    sleep states and force the governor into a burst-ready mode — critical for instant response when you
+                    run AI inference.</p>
+            </section>
+
+            <!-- ═══ LM STUDIO GUIDE ═══ -->
+            <section id="lm-studio">
+                <h2>LM Studio — Offline AI Running Guide</h2>
+                <p><strong>LM Studio</strong> is the recommended way to run local LLMs on Logilocky. It provides a
+                    polished GUI for downloading, managing, and chatting with GGUF models — with full GPU acceleration
+                    support.</p>
+
+                <h3>Installation</h3>
+                <ol>
+                    <li>Open <strong>AI Center</strong> from the application menu.</li>
+                    <li>Find <strong>LM Studio</strong> in the Flatpak list and click <strong>Install</strong>.</li>
+                    <li>If this is your first Flatpak app, AI Center will install the Flatpak runtime automatically. A
+                        reboot will be required.</li>
+                </ol>
+
+                <h3>GPU Access (Critical Step)</h3>
+                <p>Flatpak apps run in a sandbox and <strong>cannot access your GPU by default</strong>. You must grant
+                    GPU access manually:</p>
+                <ol>
+                    <li>Open <strong>Flathub AI GPU Settings on application menu</strong>or use the
+                        terminal:</li>
+                </ol>
+                <pre><code>flatpak-ai-gpu-settings</code></pre>
+
+                <p>This tool provides a simple CLI to manage GPU access for Flatpak apps. Just select LM Studio from
+                    the list to enable GPU acceleration.</p>
+
+                <p>Alternatively, install <strong>Flatseal</strong> (a Flatpak permissions manager) and toggle "GPU
+                    acceleration" / "All devices" for LM Studio.</p>
+                <pre><code>flatpak install flathub com.github.tchx84.Flatseal</code></pre>
+
+                <h3>Downloading Models</h3>
+                <p>Inside LM Studio, go to the <strong>Discover</strong> tab, search for models (e.g.
+                    <code>llama-3.2-3b</code>, <code>mistral-7b</code>, <code>phi-3-mini</code>), and click download.
+                    Models are stored locally and never leave your machine.
+                </p>
+
+                <h3>Performance Tips</h3>
+                <ul>
+                    <li>Use <strong>Q4_K_M</strong> or <strong>Q5_K_M</strong> quantized models for the best
+                        speed/quality balance.</li>
+                    <li>Set GPU layers to maximum in LM Studio settings for full VRAM offloading.</li>
+                    <li>Monitor usage with <strong>AI Monitor</strong> while running models to track VRAM and CPU load.
+                    </li>
+                    <li>For NVIDIA GPUs: ensure proprietary drivers + CUDA are installed via AI Center.</li>
+                </ul>
+            </section>
+
+            <!-- ═══ AI CENTER ═══ -->
+            <section id="ai-center">
+                <h2>AI Center</h2>
+                <p>The central hub for managing AI dependencies and applications. Install AI frameworks, Flatpak apps
+                    (LM Studio, Alpaca, GPT4All, Jan, Cherry Studio, Upscayl, etc.), Python ML libraries (PyTorch,
+                    scikit-learn, pandas, NumPy, XGBoost), and CLI tools (Gemini CLI, Codex CLI, GitHub Copilot CLI).
+                </p>
+                <p>AI Center handles package backends (apt, flatpak, npm) automatically. First-time Flatpak installs
+                    trigger a reboot prompt to register the runtime. Status indicators show installed/not-installed for
+                    each app. You can launch AI Center from the application menu</p>
+
+
+                <!-- ═══ OLLAMA MANAGER ═══ -->
+                <section id="ollama-mgr">
+                    <h2>Ollama Manager</h2>
+                    <p>A rich terminal interface for Ollama. Pull, delete, inspect, copy, and chat with local LLMs
+                        without
+                        memorizing CLI commands.</p>
+                    <ul>
+                        <li><strong>Pull Model:</strong> Download models by name (e.g. <code>llama3.2</code>,
+                            <code>deepseek-r1:7b</code>, <code>phi3:mini</code>).
+                        </li>
+                        <li><strong>Model Info:</strong> View quantization level, parameter count, context length, and
+                            the
+                            raw Modelfile.</li>
+                        <li><strong>Chat:</strong> Interactive multi-turn conversation with streaming output.</li>
+                        <li><strong>Quick Prompt:</strong> Single-shot generation for quick tasks.</li>
+                        <li><strong>Running Models:</strong> See which models are loaded in VRAM with their memory
+                            usage.
+                        </li>
+                        <li><strong>Service Control:</strong> Start, stop, restart the Ollama daemon without leaving the
+                            tool.</li>
+                        <li><strong>Install Ollama:</strong> One-click installation via the official install script.
+                        </li>
+                    </ul>
+                    <p>You can launch <strong>Ollama Manager</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Ollama Manager</strong> from the terminal</p>
+                    <pre><code># Launch
+ollama-manager</code></pre>
+                </section>
+
+                <!-- ═══ AI CHAT ═══ -->
+                <section id="ai-chat">
+                    <h2>AI Chat</h2>
+                    <p>Native desktop chat application with a PyQt6 UI. Supports multiple cloud AI providers —
+                        OpenAI, Anthropic (Claude), DeepSeek, xAI (Grok), and OpenRouter — with per-provider API key
+                        management and model selection.</p>
+                    <ul>
+                        <li>Sidebar for provider/model/API key configuration.</li>
+                        <li>Custom-painted chat bubbles with typing animation.</li>
+                        <li>Conversation history with clear chat option.</li>
+                        <li>Settings saved securely to <code>~/.config/logilocky_ai_settings.json</code> (chmod 600).
+                        </li>
+                        <li>Enter to send, Shift+Enter for newline.</li>
+                    </ul>
+                    <p>You can launch <strong>AI Chat</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>AI Chat</strong> from the terminal</p>
+                    <pre><code># Launch
+aichat</code></pre>
+                </section>
+
+                <!-- ═══ TERMINAL AI ═══ -->
+                <section id="terminal-ai">
+                    <h2>Terminal AI</h2>
+                    <p>Multi-provider AI chat right in your terminal. Supports OpenAI, Anthropic, Google Gemini, Groq,
+                        and
+                        OpenRouter with streaming responses.</p>
+                    <ul>
+                        <li>Select provider and model from a menu, then chat interactively.</li>
+                        <li>Session-only API key storage — keys are never written to disk.</li>
+                        <li>Commands: <code>!clear</code> (reset history), <code>!history</code> (show messages),
+                            <code>!tokens</code> (estimate token count).
+                        </li>
+                        <li>Supports custom/fine-tuned model names.</li>
+                    </ul>
+                    <p>You can launch <strong>Terminal AI</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Terminal AI</strong> from the terminal</p>
+                    <pre><code># Launch
+terminal-ai</code></pre>
+                </section>
+
+                <!-- ═══ AI MONITOR ═══ -->
+                <section id="ai-monitor">
+                    <h2>AI Monitor</h2>
+                    <p>Real-time system monitoring built for AI workloads. Tracks CPU usage, RAM allocation, GPU VRAM
+                        usage
+                        (NVIDIA via <code>nvidia-smi</code>), temperatures, and compute utilization. Designed to run
+                        alongside your AI inference to identify bottlenecks instantly.</p>
+                    <p>You can launch <strong>AI Monitor</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>AI Monitor</strong> from the terminal</p>
+                    <pre><code># Launch
+ai-monitor</code></pre>
+                </section>
+
+                <!-- ═══ AI SCRAPER ═══ -->
+                <section id="ai-scraper">
+                    <h2>AI Scraper</h2>
+                    <p>Web scraping tool for AI works. Extract structured data from websites, clean and process
+                        it
+                        with local models. Useful for building custom datasets, research, and data collection for
+                        fine-tuning.</p>
+                    <p>You can launch <strong>AI Scraper</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>AI Scraper</strong> from the terminal</p>
+                    <pre><code># Launch
+ai-scraper</code></pre>
+                </section>
+
+                <!-- ═══ OPENCLAW INSTALLER ═══ -->
+                <section id="openclaw">
+                    <h2>OpenClaw Installer</h2>
+                    <p>Custom installer utility for deploying OpenClaw AI models seamlessly. Automates the environment
+                        setup and dependency handling for OpenClaw components.</p>
+                    <p>You can launch <strong>OpenClaw Installer</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>OpenClaw Installer</strong> from the terminal</p>
+                    <pre><code># Launch
+openclaw-installer</code></pre>
+                </section>
+
+                <!-- ═══ HUGGINGFACE CLI STORE ═══ -->
+                <section id="huggingface">
+                    <h2>Huggingface CLI Store</h2>
+                    <p>A specialized tool to browse and download models/datasets from Huggingface directly via CLI.
+                        Helps manage your local model repository without needing a web browser.</p>
+                    <p>You can launch <strong>Huggingface CLI Store</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Huggingface CLI Store</strong> from the terminal</p>
+                    <pre><code># Launch
+huggingface-cli-store</code></pre>
+                </section>
+
+                <!-- ═══ SYSTEM MANAGER ═══ -->
+                <section id="system-manager">
+                    <h2>System Manager</h2>
+                    <p>Comprehensive GUI for system administration. Manage hostname, services (systemd), network
+                        diagnostics, hardware/disk monitoring, and core OS settings from a single unified interface.
+                        Built
+                        with PyQt6 and integrated with pkexec for privilege escalation.</p>
+                    <p>You can launch <strong>System Manager</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>System Manager</strong> from the terminal</p>
+                    <pre><code>system-manager</code></pre>
+                </section>
+
+                <!-- ═══ PACKAGE MANAGER ═══ -->
+                <section id="packagemanager">
+                    <h2>Package Manager</h2>
+                    <p>GUI frontend for apt package management. Search, install, remove, and update packages without
+                        touching the terminal. Shows package descriptions, installed status, and handles dependency
+                        resolution automatically.</p>
+                    <p>You can launch <strong>Package Manager</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Package Manager</strong> from the terminal</p>
+                    <pre><code>packagemanager</code></pre>
+                </section>
+
+                <!-- ═══ UPDATE ═══ -->
+                <section id="update">
+                    <h2>Update Tool</h2>
+                    <p>One-click system update GUI. Runs <code>apt update && apt upgrade</code> with real-time progress
+                        output. Also handles Flatpak and Snap updates if those backends are installed. Uses pkexec for
+                        safe
+                        privilege escalation.</p>
+                    <p>You can launch <strong>Update Tool</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Update Tool</strong> from the terminal</p>
+                    <pre><code>update</code></pre>
+                </section>
+
+                <!-- ═══ SYSTEM CLEANER ═══ -->
+                <section id="system-cleaner">
+                    <h2>System Cleaner</h2>
+                    <p>Free up disk space safely. Clears apt cache, removes orphaned packages, cleans temporary files,
+                        and
+                        purges old kernels. Shows space saved after each operation.</p>
+                    <p>You can launch <strong>System Cleaner</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>System Cleaner</strong> from the terminal</p>
+                    <pre><code>system-cleaner</code></pre>
+                </section>
+
+                <!-- ═══ SYSINFO ═══ -->
+                <section id="sysinfo">
+                    <h2>System Information</h2>
+                    <p>Hardware and system information dashboard. Displays CPU model, core count, RAM, GPU, disk usage,
+                        kernel version, uptime, and network interfaces in a clean GUI layout.</p>
+                    <p>You can launch <strong>System Information</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>System Information</strong> from the terminal</p>
+                    <pre><code>sysinfo</code></pre>
+                </section>
+
+                <!-- ═══ USB TOOLKIT ═══ -->
+                <section id="usb-toolkit">
+                    <h2>USB Toolkit</h2>
+                    <p>Format and prepare USB drives from the GUI. Supports ext4, FAT32, NTFS, and exFAT. Includes safe
+                        unmount, partition table creation, and drive identification to prevent accidental formatting of
+                        system drives.</p>
+                    <p>You can launch <strong>USB Toolkit</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>USB Toolkit</strong> from the terminal</p>
+                    <pre><code>usb-toolkit</code></pre>
+                </section>
+
+                <!-- ═══ BROWSER MANAGER ═══ -->
+                <section id="browser-manager">
+                    <h2>Browser Manager</h2>
+                    <p>Install and manage web browsers. Supports Chromium, Firefox, Brave, and other browsers with
+                        one-click
+                        install/remove and default browser configuration.</p>
+                    <p>You can launch <strong>Browser Manager</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Browser Manager</strong> from the terminal</p>
+                    <pre><code>browser_manager</code></pre>
+                </section>
+
+                <!-- ═══ CONKY SETTINGS ═══ -->
+                <section id="conky">
+                    <h2>Conky Settings</h2>
+                    <p>CLI configuration for your desktop conky widgets and performance monitors. Easily tweak
+                        appearance, update intervals, and displayed metrics like CPU, RAM, and Network.</p>
+                    <p>You can launch <strong>Conky Settings</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Conky Settings</strong> from the terminal</p>
+                    <pre><code>conky-settings</code></pre>
+                </section>
+
+                <!-- ═══ FIREWALL ═══ -->
+                <section id="firewall">
+                    <h2>Firewall Manager</h2>
+                    <p>GUI for managing nftables firewall rules. Toggle firewall on/off, configure
+                        inbound/outbound
+                        rules, block specific ports, and apply hardened presets. Rules are embedded directly in the tool
+                        —
+                        no external config files needed.</p>
+                    <p>You can launch <strong>Firewall Manager</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Firewall Manager</strong> from the terminal</p>
+                    <pre><code>firewall</code></pre>
+                </section>
+
+                <!-- ═══ PRIVACY ═══ -->
+                <section id="privacy">
+                    <h2>Privacy Tools</h2>
+                    <p>Privacy tools suite. Metadata removal, IP Checker, Cheksum Verification,
+                        Password Generator utilities.
+                    </p>
+                    <p>You can launch <strong>Privacy Tools</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Privacy Tools</strong> from the terminal</p>
+                    <pre><code>privacy</code></pre>
+                </section>
+
+                <!-- ═══ CRYPT ═══ -->
+                <section id="crypt">
+                    <h2>Logilocky Crypt</h2>
+                    <p>File and directory encryption tool. Encrypt sensitive files, private datasets, or proprietary
+                        model
+                        weights with several encryption algorithms. Supports single file and batch directory
+                        encryption/decryption with
+                        password protection.</p>
+                    <p>You can launch <strong>Logilocky Crypt</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Logilocky Crypt</strong> from the terminal</p>
+                    <pre><code>crypt</code></pre>
+                </section>
+
+                <!-- ═══ DNS CHANGER ═══ -->
+                <section id="dns-changer">
+                    <h2>DNS Changer</h2>
+                    <p>Quickly switch your system DNS to privacy-focused providers (Cloudflare 1.1.1.1, Google 8.8.8.8,
+                        Quad9, etc.). Overrides NetworkManager persistently so changes survive reboots. GUI with
+                        one-click
+                        provider selection.</p>
+                    <p>You can launch <strong>DNS Changer</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>DNS Changer</strong> from the terminal</p>
+                    <pre><code>dns-changer</code></pre>
+                </section>
+
+                <!-- ═══ NOTES ═══ -->
+                <section id="notes">
+                    <h2>Notes</h2>
+                    <p>Lightweight note-taking app with persistent local storage. Create, edit, search, and delete
+                        notes.
+                        Data saved as JSON in <code>~/.config/</code>. Designed for quick capture during development
+                        sessions.</p>
+                    <p>You can launch <strong>Notes</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Notes</strong> from the terminal</p>
+                    <pre><code>notes</code></pre>
+                </section>
+
+                <!-- ═══ TODO ═══ -->
+                <section id="todo">
+                    <h2>Todo</h2>
+                    <p>Task management app. Add tasks with priorities, mark as complete, filter by status. Persistent
+                        storage via JSON. Clean PyQt6 interface matching the Logilocky design language.</p>
+                    <p>You can launch <strong>Todo</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Todo</strong> from the terminal</p>
+                    <pre><code>todo</code></pre>
+                </section>
+
+                <!-- ═══ CALENDAR ═══ -->
+                <section id="calendar">
+                    <h2>Calendar</h2>
+                    <p>Desktop calendar with event management. Add events with dates and descriptions, view
+                        monthly/weekly
+                        layouts. Data persisted locally in JSON format.</p>
+                    <p>You can launch <strong>Calendar</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Calendar</strong> from the terminal</p>
+                    <pre><code>calendar</code></pre>
+                </section>
+
+                <!-- ═══ DOC CONVERTER ═══ -->
+                <section id="doc-converter">
+                    <h2>Document Converter</h2>
+                    <p>Convert between document formats (PDF, HTML, DOCX, TXT, Markdown). Uses WeasyPrint for PDF
+                        generation. Batch conversion support with drag-and-drop interface.</p>
+                    <p>You can launch <strong>Document Converter</strong> from the application menu</p>
+
+                    <p>Alternatively, you can launch <strong>Document Converter</strong> from the terminal</p>
+                    <pre><code>document-converter</code></pre>
+                </section>
+
+                <!-- ═══ FAQ ═══ -->
+                <section id="faq">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="glass-panel">
+                        <h4>Is Logilocky AI Linux free?</h4>
+                        <p>Yes, completely free and open-source. No subscriptions, no data harvesting.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>Do I need internet to run AI models?</h4>
+                        <p>No. You only need internet to download the OS and pull model weights initially. Once
+                            downloaded,
+                            everything runs 100% locally. No data ever leaves your machine.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>Minimum system requirements?</h4>
+                        <p>Base OS: 4GB RAM, 20GB disk. For AI models: 8GB+ RAM, NVIDIA GPU with 4GB+ VRAM strongly
+                            recommended. Use Q4/Q5 quantized models for best performance on limited hardware.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>Can I install NVIDIA proprietary drivers?</h4>
+                        <p>Yes. System manager make it easy to install NVIDIA drivers.</p>
+                    </div>
+                    <div class="glass-panel">
+                        <h4>What's the best way to run local LLMs?</h4>
+                        <p>Strongly recommend <strong>LM Studio</strong>. Install it via AI Center.</p>
+                        <p>Also Ollama Manager is a good option.For terminal based local AI usage.</p>
+                    </div>
+                </section>
+
+                <!-- ═══ CONTACT ═══ -->
+                <section id="contact">
+                    <h2>Contact & Support</h2>
+                    <p>Found a bug, have a feature request, or need help? Report all issues through official contact
+                        portal:</p>
+                    <div class="glass-panel" style="text-align: center;">
+                        <p style="margin-bottom: 12px;">Bug reports · Feature requests · Security concerns</p>
+                        <a href="https://nixovena.org/contact" target="_blank" class="btn-glow"
+                            style="font-size: 0.75rem; padding: 10px 24px;">nixovena.org/contact</a>
+                    </div>
+                </section>
+
+                <!-- ═══ DISCLAIMER ═══ -->
+                <section id="disclaimer">
+                    <h2>Disclaimer</h2>
+                    <div class="glass-panel" style="border-color: rgba(255,45,106,0.3);">
+                        <h4 style="color: var(--accent);">Disclaimer of Liability</h4>
+                        <p>Logilocky AI Linux is provided "as is" without warranties of any kind. The developers are not
+                            liable for data loss, hardware damage, security breaches, or other issues arising from use.
+                            Running intensive AI workloads can stress hardware to thermal limits — ensure adequate
+                            cooling.
+                            Always back up critical data before installing a new OS or modifying kernel parameters.</p>
+                    </div>
+                </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo"><img src="Assets/logo.png" alt="Logilocky AI"></div>
+            <p>&copy; 2026 Logilocky AI Linux · #GENERATIONEXT</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Active sidebar link tracking
+        const sidebarLinks = document.querySelectorAll('.docs-sidebar a');
+        const sections = document.querySelectorAll('.docs-main section');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const offset = document.getElementById('navbar').offsetHeight + 40;
+            sections.forEach(s => {
+                if (pageYOffset >= s.offsetTop - offset) current = s.id;
+            });
+            sidebarLinks.forEach(l => {
+                l.classList.remove('active');
+                if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
